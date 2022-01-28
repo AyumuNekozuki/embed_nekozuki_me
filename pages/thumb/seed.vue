@@ -29,10 +29,10 @@
         </a>
       </div>
       <div class="text">
-        <span v-if="data.type == 'VRM'" class="type vrm">VRM</span>
-        <span v-if="data.type == 'VCI'" class="type vci">VCI</span>
-        <span v-if="data.type == 'GLB'" class="type glb">GLB</span>
-        <span v-if="data.contents == 'users'" class="type user">ユーザー</span>
+        <p v-if="data.type == 'VRM'" class="type vrm">VRM</p>
+        <p v-if="data.type == 'VCI'" class="type vci">VCI</p>
+        <p v-if="data.type == 'GLB'" class="type glb">GLB</p>
+        <p v-if="data.contents == 'users'" class="type user">ユーザー</p>
         <div>
           <a
             class="title"
@@ -53,7 +53,7 @@
     </div>
     <div class="body" v-if="data.contents === 'error'">
       <div class="text">
-        <span class="type error">ERROR!</span>
+        <p class="type error">ERROR!</p>
         <p class="title err">エラーが発生しました。</p>
         <p class="description">
           ページが見つからないか、内部でエラーが発生した可能性があります。少し時間を空けて再度お試しください。<br>
@@ -155,7 +155,7 @@ export default {
         a {
           color: inherit;
           text-decoration: none;
-          font-size: 12px;
+          font-size: 11px;
           display: flex;
           align-items: center;
           position: relative;
@@ -174,7 +174,7 @@ export default {
       a {
         color: inherit;
         text-decoration: none;
-        font-size: 12px;
+        font-size: 11px;
         display: flex;
         align-items: center;
       }
@@ -189,6 +189,7 @@ export default {
   }
   div.body {
     display: flex;
+    align-items: center;
     color: inherit;
     text-decoration: none;
     padding: 4px 8px;
@@ -212,15 +213,17 @@ export default {
       flex: 1;
       padding-left: 5px;
       overflow: hidden;
-
       * {
         font-size: 14px;
       }
 
       .type {
-        font-size: 10px;
+        display: inline-block;
+        font-size: 9px;
         font-weight: bold;
-        padding: 2px;
+        padding: 2px 3px;
+        margin: 0;
+
         &.vrm {
           background: #ee9c00;
           color: white;
