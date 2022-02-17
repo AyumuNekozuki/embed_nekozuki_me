@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'embed_nekozuki_me',
+    title: 'ブログパーツ',
     htmlAttrs: {
       prefix: 'og: http://ogp.me/ns#',
       lang: 'ja'

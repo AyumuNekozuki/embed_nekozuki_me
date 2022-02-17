@@ -5,12 +5,12 @@
         <div class="head">
           <a
             class="logo"
-            href="https://seed.online/"
+            href="https://room.virtualcast.jp/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src="~/assets/logo/tso_logo_icon_col.png" alt="" srcset="" />
-            <span>THE SEED ONLINE</span>
+            <img src="~/assets/logo/virtualcast_logo_icon_col.png" alt="" srcset="" />
+            <span>Virtual Cast</span>
           </a>
         </div>
         <a
@@ -29,10 +29,8 @@
         </a>
       </div>
       <div class="text">
-        <p v-if="data.type == 'VRM'" class="type vrm">VRM</p>
-        <p v-if="data.type == 'VCI'" class="type vci">VCI</p>
-        <p v-if="data.type == 'GLB'" class="type glb">GLB</p>
-        <p v-if="data.contents == 'users'" class="type user">ユーザー</p>
+        <p v-if="data.type=='room'" class="type room">ルーム</p>
+        <p v-if="data.type=='user'" class="type user">ユーザー</p>
         <div>
           <a
             class="title"
@@ -42,11 +40,7 @@
             >{{ data.title }}</a
           >
         </div>
-        <p class="autor">{{ data.autor }}</p>
-        <p
-          class="description"
-          v-if="data.contents == 'products' || data.contents == 'users'"
-        >
+        <p class="description">
           {{ data.description }}
         </p>
       </div>
@@ -56,8 +50,14 @@
         <p class="type error">ERROR!</p>
         <p class="title err">エラーが発生しました。</p>
         <p class="description">
-          ページが見つからないか、内部でエラーが発生した可能性があります。少し時間を空けて再度お試しください。<br>
-          何度も表示される場合は <a href="https://twitter.com/nekozuki_dev" target="_blank" rel="noopener noreferrer">@nekozuki_dev</a>までご連絡ください。
+          ページが見つからないか、内部でエラーが発生した可能性があります。少し時間を空けて再度お試しください。<br />
+          何度も表示される場合は
+          <a
+            href="https://twitter.com/nekozuki_dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            >@nekozuki_dev</a
+          >までご連絡ください。
         </p>
       </div>
     </div>
@@ -77,48 +77,19 @@ export default {
     if (data) {
       data.url = query.url;
 
-      if (data.url.indexOf("products") !== -1) {
-        data.contents = "products";
-      } else if (data.url.indexOf("users") !== -1) {
-        data.contents = "users";
-      } else if (data.url.indexOf("items") !== -1) {
-        data.contents = "items";
-      } else {
-        // 対象外のとき
-        data.contents = "error";
+      //タイトルの最後のサイト名表示を消す
+      data.title = data.title.substr(0, data.title.length - 24);
+      //詳細分の文字数を削る
+      data.description = data.description.substring(0, 49) + "…";
+
+      if(data.url.match(/rooms/)){
+        // roomの場合
+        data.type = 'room';
+      }else{
+        data.type = 'user';
       }
 
-      if (data.contents == "products" || data.contents == "items") {
-        //タイトルの最後のSEED表示を消す
-        data.title = data.title.substr(0, data.title.length - 18);
 
-        // タイトル・投稿者・タイプを分ける
-        var dataarr = data.title.split("/");
-
-        //タイプの無駄なスペースを消して格納
-        data.type = dataarr[dataarr.length - 1].replace(" ", "");
-        dataarr.splice(-1, 1);
-
-        //投稿者の無駄なスペースを消して格納
-        data.autor = dataarr[dataarr.length - 1].substr(
-          0,
-          dataarr[dataarr.length - 1].length - 1
-        );
-        data.autor = data.autor.substr(1);
-        dataarr.splice(-1, 1);
-
-        //残りを結合してタイトルに&いらない空白とコンマを削除
-        data.title = dataarr.toString();
-        data.title = data.title.substr(0, data.title.length - 1);
-        data.title = data.title.replace(",", "");
-
-        //詳細分の文字数を削る
-        data.description = data.description.substring(0, 49) + "…";
-
-      } else if (data.contents == "users") {
-        data.title = data.title.substr(0, data.title.length - 28);
-        data.description = data.description.substring(0, 49) + "…";
-      }
     } else {
       var data = {};
       data.contents = "error";
@@ -184,7 +155,7 @@ export default {
       content: "";
       display: block;
       height: 2px;
-      background: linear-gradient(to right, #48c8f5 0%, #3079de 100%);
+      background: linear-gradient(to right, #13e1ff 0%, #4f00d1 100%);
     }
   }
   div.body {
@@ -225,6 +196,10 @@ export default {
         padding: 2px 3px;
         margin: 0;
 
+        &.room {
+          background: #2b9bff;
+          color: white;
+        }
         &.vrm {
           background: #ee9c00;
           color: white;
@@ -266,7 +241,7 @@ export default {
         margin-top: 3px;
         line-height: 14px;
         font-size: 10px;
-        *{
+        * {
           line-height: 14px;
           font-size: 10px;
         }

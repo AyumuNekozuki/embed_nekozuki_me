@@ -1,11 +1,24 @@
 <template>
-  <div id="top">
+  <div id="vcastop">
     <main>
-      <h2>準備中です</h2>
-      <!-- <div class="input_area">
-        <input type="text" name="url" id="input_url" placeholder="URLを入力してください">
-        <button type="submit">実行</button>
-      </div> -->
+      <h2>バーチャルキャスト非公式ブログパーツ</h2>
+      <div class="input_area">
+        <input
+          type="text"
+          name="url"
+          id="input_url"
+          placeholder="URLを入力してください"
+        />
+        <button type="submit" @click="url_submit()">実行</button>
+      </div>
+      <div class="result_area">
+        <div class="item">
+          <iframe width="312" height="176" src="https://embed.nekozuki.me/thumb/vcas?url=" scrolling="no" style="border:solid 1px #ccc;" frameborder="0"></iframe>
+        </div>  
+        <div class="item">
+          <iframe width="312" height="176" src="https://embed.nekozuki.me/thumb/seed?url=" scrolling="no" style="border:solid 1px #ccc;" frameborder="0"></iframe>
+        </div>
+      </div>
     </main>
     <footer>
       <small>&copy; 2022 AyumuNekozuki</small>
@@ -15,19 +28,23 @@
 
 <script>
 export default {
-  
+  methods: {
+    url_submit(){
+      
+    }
+  }
 };
 </script>
 
 <style lang="scss">
-#top {
+#vcastop {
   min-height: 100vh;
   background: repeating-linear-gradient(
     -45deg,
     transparent,
     transparent 15px,
-    #efefff 0,
-    #efefff 30px
+    #E6F4FF 0,
+    #E6F4FF 30px
   );
 
   main {
@@ -38,14 +55,14 @@ export default {
       text-align: center;
     }
 
-    div {
+    &> div {
       background: white;
       border-radius: 10px;
       margin: 1rem auto;
       padding: 1.5rem 2rem;
-      max-width: 600px;
+      max-width: 700px;
       width: calc(100% - 20px);
-      box-shadow: 0 0 3px #7f7fff;
+      box-shadow: 0 0 3px #3079de;
 
       &.input_area {
         display: flex;
@@ -77,6 +94,11 @@ export default {
           }
         }
       }
+
+      &.result_area{
+        display: flex;
+        justify-content: space-between;
+      }
     }
   }
 
@@ -85,7 +107,7 @@ export default {
     align-items: center;
     justify-content: center;
 
-    background: #7f7fff;
+    background: #3079de;
     color: white;
     height: 30px;
     text-align: center;
