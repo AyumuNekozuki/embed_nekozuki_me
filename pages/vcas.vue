@@ -8,15 +8,32 @@
           name="url"
           id="input_url"
           placeholder="URLを入力してください"
+          v-model="url"
         />
         <button type="submit" @click="url_submit()">実行</button>
       </div>
       <div class="result_area">
-        <div class="item">
-          <iframe width="312" height="176" src="https://embed.nekozuki.me/thumb/vcas?url=" scrolling="no" style="border:solid 1px #ccc;" frameborder="0"></iframe>
-        </div>  
-        <div class="item">
-          <iframe width="312" height="176" src="https://embed.nekozuki.me/thumb/seed?url=" scrolling="no" style="border:solid 1px #ccc;" frameborder="0"></iframe>
+        <div class="item vcas">
+          <iframe
+            width="312"
+            height="176"
+            src=""
+            scrolling="no"
+            style="border: solid 1px #ccc"
+            frameborder="0"
+          ></iframe>
+          <button class="copybut" @click="copy_vcas">コピーする</button>
+        </div>
+        <div class="item seed">
+          <iframe
+            width="312"
+            height="176"
+            src=""
+            scrolling="no"
+            style="border: solid 1px #ccc"
+            frameborder="0"
+          ></iframe>
+          <button class="copybut" @click="copy_seed">コピーする</button>
         </div>
       </div>
     </main>
@@ -29,10 +46,65 @@
 <script>
 export default {
   methods: {
-    url_submit(){
-      
+    url_submit() {
+      var input_url = this.url;
+
+      document
+        .querySelector(".item.vcas iframe")
+        .setAttribute("src", "https://embed.nekozuki.me/thumb/vcas?url=");
+      document
+        .querySelector(".item.seed iframe")
+        .setAttribute("src", "https://embed.nekozuki.me/thumb/seed?url=");
+
+      if (input_url.match(/users/)) {
+        // ユーザー
+        var userid = input_url.substring(input_url.indexOf("users/"));
+
+        document
+          .querySelector(".item.vcas iframe")
+          .setAttribute(
+            "src",
+            "https://embed.nekozuki.me/thumb/vcas?url=https://room.virtualcast.jp/" +
+              userid
+          );
+        document
+          .querySelector(".item.seed iframe")
+          .setAttribute(
+            "src",
+            "https://embed.nekozuki.me/thumb/seed?url=https://seed.online/" +
+              userid
+          );
+      }
+
+      if (input_url.match(/rooms/)) {
+        // ルーム
+        document
+          .querySelector(".item.vcas iframe")
+          .setAttribute(
+            "src",
+            "https://embed.nekozuki.me/thumb/vcas?url=" + input_url
+          );
+      }
+
+      if (input_url.match(/products/) || input_url.match(/items/)) {
+        // 商品・アセット
+        document
+          .querySelector(".item.seed iframe")
+          .setAttribute(
+            "src",
+            "https://embed.nekozuki.me/thumb/seed?url=" + input_url
+          );
+      }
+    },
+    copy_vcas(){
+      var item = document.querySelector(".item.vcas iframe").outerHTML;
+      navigator.clipboard.writeText(item);
+    },
+    copy_seed(){
+      var item = document.querySelector(".item.seed iframe").outerHTML;
+      navigator.clipboard.writeText(item);
     }
-  }
+  },
 };
 </script>
 
@@ -43,8 +115,8 @@ export default {
     -45deg,
     transparent,
     transparent 15px,
-    #E6F4FF 0,
-    #E6F4FF 30px
+    #e6f4ff 0,
+    #e6f4ff 30px
   );
 
   main {
@@ -55,7 +127,7 @@ export default {
       text-align: center;
     }
 
-    &> div {
+    & > div {
       background: white;
       border-radius: 10px;
       margin: 1rem auto;
@@ -95,9 +167,25 @@ export default {
         }
       }
 
-      &.result_area{
+      &.result_area {
         display: flex;
         justify-content: space-between;
+
+        .copybut {
+          padding: 3px 10px;
+          background-color: #0080ff;
+          color: white;
+          font-weight: bold;
+          border: none;
+          border-radius: 5px;
+          opacity: 1;
+          transition: opacity ease 0.1s;
+          cursor: pointer;
+
+          &:hover {
+            opacity: 0.8;
+          }
+        }
       }
     }
   }

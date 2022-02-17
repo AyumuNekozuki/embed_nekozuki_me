@@ -14,7 +14,7 @@
           </a>
         </div>
         <a
-          href="https://embed.nekozuki.me"
+          href="https://embed.nekozuki.me/vcas"
           target="_blank"
           rel="noopener noreferrer"
         >
