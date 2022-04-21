@@ -62,7 +62,7 @@ export default {
 <style lang="scss" scoped>
 #embed {
   display: block;
-  background: #fafafa;
+  background: white;
   color: #252525;
   text-decoration: none;
 
