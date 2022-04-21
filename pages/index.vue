@@ -1,11 +1,30 @@
 <template>
   <div id="top">
     <main>
-      <h2>準備中です</h2>
-      <!-- <div class="input_area">
-        <input type="text" name="url" id="input_url" placeholder="URLを入力してください">
-        <button type="submit">実行</button>
-      </div> -->
+      <h2>nekozuki.meブログパーツ</h2>
+      <div class="input_area">
+        <input
+          type="text"
+          name="url"
+          id="input_url"
+          placeholder="URLを入力してください"
+          v-model="url"
+        />
+        <button type="submit" @click="url_submit()">実行</button>
+      </div>
+      <div class="result_area">
+        <div class="item">
+          <iframe
+            width="100%"
+            height="120px"
+            src=""
+            scrolling="no"
+            style="border: solid 1px #ccc"
+            frameborder="0"
+          ></iframe>
+          <button class="copybut" @click="copy">コピーする</button>
+        </div>
+      </div>
     </main>
     <footer>
       <small>&copy; 2022 AyumuNekozuki</small>
@@ -15,7 +34,19 @@
 
 <script>
 export default {
-  
+  methods: {
+    url_submit() {
+      var input_url = this.url;
+
+      document
+        .querySelector(".item iframe")
+        .setAttribute("src", "https://embed.nekozuki.me/thumb?url="+input_url);
+    },
+    copy(){
+      var item = document.querySelector(".item iframe").outerHTML;
+      navigator.clipboard.writeText(item);
+    }
+  },
 };
 </script>
 
