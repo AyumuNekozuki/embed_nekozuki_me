@@ -5,13 +5,6 @@
         <div class="head">
           {{data.url}}
         </div>
-        <a
-          href="https://embed.nekozuki.me/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          nekozuki.meブログパーツ
-        </a>
       </div>
     </header>
     <div class="body">
